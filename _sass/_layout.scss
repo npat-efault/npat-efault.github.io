@@ -173,13 +173,20 @@
     margin-left: 0;
     list-style: none;
 
+/*
     > li {
         margin-bottom: $spacing-unit;
     }
+*/
 }
 
 .post-meta {
     font-size: $small-font-size;
+    color: $grey-color;
+}
+
+.post-list-date {
+    font-size: $smaller-font-size;
     color: $grey-color;
 }
 
