@@ -3,6 +3,7 @@ layout: post
 title:  "Elastic Channels"
 date:   2014-11-24 21:01:59
 categories: golang
+comments: yes
 ---
 
 Channels are one of the basic concurrency primitives provided by
@@ -135,7 +136,8 @@ and very handy since it allows us to *implicitly introduce states* to
 our processing loop. Without it, the states would have to be explicit,
 which results in more verbose and repetitive code (especially if,
 unlike our example, there are several select-clauses common in
-multiple states):
+multiple states). Without this "nil trick" our (pseudo)-code would
+look like this:
 
     state = output_disabled
     for {
