@@ -229,10 +229,10 @@ implementation even if the later shifts (copies) the elements back and
 forth for insertions and deletions. In almost all cases the list
 implementation will under-perform dramatically due to its inherently
 bad locality of memory accesses. You don't have to take my word for
-it; you can `listen to Bjarne
-<https://www.youtube.com/watch?v=YQs6IC-vgmo>`_ instead. In order to
-implement queue operations with a slice the most straightforward
-approach is like this:
+it; you can
+[listen to Bjarne](https://www.youtube.com/watch?v=YQs6IC-vgmo)
+instead. In order to implement queue operations with a slice the most
+straightforward approach is like this:
 
     q = []T{}
 
