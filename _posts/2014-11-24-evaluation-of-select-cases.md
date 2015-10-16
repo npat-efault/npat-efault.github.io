@@ -3,6 +3,7 @@ layout: post
 title:  "Evaluation of Select Cases"
 date:   2014-11-24 21:01:59
 categories: golang
+comments: yes
 ---
 
 Assume you have a goroutine and two channels: *cin* and *cout*. The
@@ -93,4 +94,4 @@ be rewritten along these lines:
         }
     }
 
-It is certainly uglier, but what you can do? Everything has a cost!
+It is certainly uglier, but what can you do? Everything has a cost!

@@ -240,7 +240,7 @@ straightforward approach is like this:
 
 For pushes (we add new elements to the back of the array): 
 
-    append(q, el)
+    q = append(q, el)
 
 For pops (we remove elements from the front): 
 
@@ -415,7 +415,7 @@ somewhere in between). The the results on my computer:
 That is, our elastic channels seem to be approximately 4x slower than
 an unbuffered channel and about 7x - 9x slower than a buffered one. We
 can't do much to improve things (after all we allocate memory, we copy
-things over when we do so, unavoidably, we will run slower than the
+things over when we do, so, unavoidably, we will run slower than the
 fixed-buffer channels) but perhaps we can still do a bit more... Using
 the excellent
 [Go CPU Profiler (pprof)](http://blog.golang.org/profiling-go-programs)
