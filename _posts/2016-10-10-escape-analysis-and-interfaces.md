@@ -3,6 +3,7 @@ layout: post
 title:  "golang: Escape analysis and interfaces"
 date:   2016-10-10 03:30:00
 categories: programming
+comments: yes
 ---
 
 Escape what? Well, "escape analysis" is the process by which the
