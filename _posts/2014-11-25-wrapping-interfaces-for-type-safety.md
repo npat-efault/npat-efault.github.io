@@ -3,6 +3,7 @@ layout: post
 title:  "Wrapping Interfaces for Type Safety"
 date:   2014-11-25 21:01:59
 categories: golang
+comments: yes
 ---
 
 Go(lang) has no support for generics. This introduces a dilemma when
@@ -50,13 +51,9 @@ tree, AVL tree, whatever) that provides an API like this:
     // Interface must be implemented by elements (values) inserted in
     // the tree (i.e. tree elements must be comparable to each other). 
     type Interface interface {
-        // The Less method returns true if the receiver is less 
-        // than the argument, false otherwise.
-        Less(Interface) bool
-  
-        // The Equal method returns true if the receiver is equal
-        // to the argument, false otherwise.
-        Equal(Interface) bool
+        // The Less method returns a negative if the receiver is less 
+        // than the argument, 0 if equal, a positive otherwise.
+        Compare(Interface) bool
     }
   
     // Creates and returns a new tree.
@@ -130,9 +127,7 @@ the generic tree methods in type-specific ones*, like this:
     }
   
     func NewThingsTree() *ThingsTree {
-         t := ThingsTree{}
-         t.tr = tree.New()
-  	   return t
+         return &ThingsTree{tr: tree.New()}
     }
   
     func (t *ThingsTree) Insert(thing *Thing) ok bool { 
@@ -148,7 +143,7 @@ the generic tree methods in type-specific ones*, like this:
         if ! ok {
            return nil, false
         }
-        return v.(*Thing) 
+        return v.(*Thing), true 
     }
 
 This way you reduce the "surface area" of type unsafe code to these
@@ -172,4 +167,3 @@ compromise*. It's up to you to decide if you need the extra protection
 (at the cost of extra verbosity, complexity, effort) according to the
 needs of your project.
 
-After all, life is a set of compromises.
