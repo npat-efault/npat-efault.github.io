@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Pause / Resume: A nile little pattern"
+title:  "Pause / Resume: A nice little pattern"
 date:   2016-10-24 01:15:59
 categories: golang
 comments: yes
@@ -12,6 +12,26 @@ call "pause" the caller must block until the controlled goroutine is
 in fact paused. Multiple controlling goroutines can call "pause"; the
 same number must call "resume" before the contolling goroutine
 resumes.
+
+If only *one* controlling goroutine were to issue pause requests, the
+solution would be a simple mutex. That is, the controlled goroutine
+would do something like:
+
+    for {
+        mu.Lock()
+
+        // Do whatever
+
+        mu.Unlock()
+	}
+
+That is, the controlled goroutine would operate with a semaphore held,
+and it would release the and reclaim the semaphore periodically. The
+pause request would be issued by the controlling goroutine by holding
+the mutex, and the resume request by releasing it.
+
+With multiple goroutines being able to issue pause requests it gets a
+bit more complicated...
 
 Here's an implementation using channels. It utilizes two channels of
 the "empty" type. One carries pause requests, the other resume
