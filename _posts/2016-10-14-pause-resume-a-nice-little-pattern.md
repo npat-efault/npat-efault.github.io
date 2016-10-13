@@ -10,7 +10,7 @@ We want to "pause" and "resume" the operation of a cooperating
 goroutine (controlled) from another goroutine (controlling). Once we
 call "pause" the caller must block until the controlled goroutine is
 in fact paused. Multiple controlling goroutines can call "pause"; the
-same number must call "resume" before the contolling goroutine
+same number must call "resume" before the contolled goroutine
 resumes.
 
 If only *one* controlling goroutine were to issue pause requests, the
@@ -26,16 +26,16 @@ would do something like:
 	}
 
 That is, the controlled goroutine would operate with a semaphore held,
-and it would release the and reclaim the semaphore periodically. The
-pause request would be issued by the controlling goroutine by holding
-the mutex, and the resume request by releasing it.
+and it would release and reclaim the semaphore periodically. The pause
+request would be issued by the controlling goroutine by holding the
+mutex, and the resume request by releasing it.
 
 With multiple goroutines being able to issue pause requests it gets a
-bit more complicated...
+bit more complicated. Thera are, of course, solutions using mutexes
+and/or signals, but here's one using channels...
 
-Here's an implementation using channels. It utilizes two channels of
-the "empty" type. One carries pause requests, the other resume
-requests.
+It utilizes two channels of the "empty" type and a counter. One
+channel carries pause requests, the other resume requests.
 
     type ε struct{}
 
